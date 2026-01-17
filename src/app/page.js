@@ -87,7 +87,7 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-black">
-              Soundscapes
+              Sceneria
             </h1>
             
           </motion.div>
