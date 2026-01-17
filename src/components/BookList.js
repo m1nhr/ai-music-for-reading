@@ -1,6 +1,23 @@
 'use client';
 
 import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Music, BookOpen, Loader2, Sparkles } from 'lucide-react';
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 }
+};
 
 export default function BookList({ books, onGenerateMusic, isGenerating }) {
   if (books.length === 0) {
@@ -8,47 +25,125 @@ export default function BookList({ books, onGenerateMusic, isGenerating }) {
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto mt-8">
-      <h2 className="text-2xl font-bold mb-4">Search Results</h2>
-      <div className="grid gap-4">
-        {books.map((book) => (
-          <div
-            key={book.id}
-            className="flex gap-4 p-4 border border-gray-200 rounded-lg hover:shadow-lg transition-shadow bg-white"
-          >
-            {book.thumbnail ? (
-              <Image
-                src={book.thumbnail}
-                alt={book.title}
-                width={80}
-                height={120}
-                className="rounded object-cover"
-              />
-            ) : (
-              <div className="w-20 h-30 bg-gray-200 rounded flex items-center justify-center">
-                <span className="text-gray-400 text-xs">No image</span>
-              </div>
-            )}
+    <motion.div
+      className="w-full max-w-4xl mx-auto mt-12 px-4 sm:px-0"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.2 }}
+    >
+      <motion.div
+        className="flex items-center gap-2 mb-6"
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+      >
+        <BookOpen className="w-6 h-6 text-[#8B7355]" />
+        <h2 className="text-2xl font-bold text-[#3D3429]">
+          Search Results
+        </h2>
+        <span className="ml-2 px-2 py-1 bg-[#E8E1D5] text-[#6B5D4F] rounded-full text-sm font-medium">
+          {books.length}
+        </span>
+      </motion.div>
 
-            <div className="flex-1">
-              <h3 className="font-bold text-lg">{book.title}</h3>
-              <p className="text-gray-600 text-sm mb-2">
-                {book.authors.join(', ')}
-              </p>
-              <p className="text-gray-700 text-sm line-clamp-2 mb-3">
-                {book.description}
-              </p>
-              <button
-                onClick={() => onGenerateMusic(book)}
-                disabled={isGenerating}
-                className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors text-sm"
+      <motion.div
+        className="grid gap-4 sm:gap-6"
+        variants={container}
+        initial="hidden"
+        animate="show"
+      >
+        <AnimatePresence>
+          {books.map((book) => (
+            <motion.div
+              key={book.id}
+              variants={item}
+              layout
+              className="group relative"
+            >
+              <motion.div
+                className="flex flex-col sm:flex-row gap-4 p-4 sm:p-6 bg-white rounded-lg border border-[#D4C4B0] hover:border-[#A08968] transition-all duration-300"
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.2 }}
               >
-                {isGenerating ? 'Generating...' : 'Generate Music'}
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+                {/* Book Cover */}
+                <motion.div
+                  className="flex-shrink-0 mx-auto sm:mx-0"
+                  whileHover={{ scale: 1.05, rotate: -2 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {book.thumbnail ? (
+                    <div className="relative">
+                      <Image
+                        src={book.thumbnail}
+                        alt={book.title}
+                        width={100}
+                        height={150}
+                        className="rounded-lg shadow-lg object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-[100px] h-[150px] bg-[#E8E1D5] rounded-lg flex items-center justify-center">
+                      <BookOpen className="w-8 h-8 text-[#A08968]" />
+                    </div>
+                  )}
+                </motion.div>
+
+                {/* Book Details */}
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-bold text-lg sm:text-xl text-[#3D3429] mb-2 line-clamp-2 group-hover:text-[#8B7355] transition-colors">
+                    {book.title}
+                  </h3>
+
+                  <div className="flex items-center gap-2 mb-3">
+                    <p className="text-[#6B5D4F] text-sm">
+                      {book.authors.join(', ')}
+                    </p>
+                  </div>
+
+                  <p className="text-[#6B5D4F] text-sm leading-relaxed line-clamp-2 sm:line-clamp-3 mb-4">
+                    {book.description || 'No description available'}
+                  </p>
+
+                  {/* Categories */}
+                  {book.categories && book.categories.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {book.categories.slice(0, 3).map((category, idx) => (
+                        <span
+                          key={idx}
+                          className="px-2 py-1 bg-[#E8E1D5] text-[#6B5D4F] rounded-md text-xs font-medium"
+                        >
+                          {category}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Generate Button */}
+                  <motion.button
+                    onClick={() => onGenerateMusic(book)}
+                    disabled={isGenerating}
+                    className="w-full sm:w-auto px-6 py-3 bg-[#8B7355] text-white rounded-lg font-medium disabled:bg-[#D4C4B0] disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
+                    whileHover={{ scale: isGenerating ? 1 : 1.02 }}
+                    whileTap={{ scale: isGenerating ? 1 : 0.98 }}
+                  >
+                    {isGenerating ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span>Generating...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Music className="w-4 h-4" />
+                        <span>Generate Soundtrack</span>
+                        <Sparkles className="w-4 h-4 opacity-70" />
+                      </>
+                    )}
+                  </motion.button>
+                </div>
+              </motion.div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </motion.div>
+    </motion.div>
   );
 }
