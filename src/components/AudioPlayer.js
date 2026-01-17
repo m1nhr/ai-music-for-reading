@@ -120,7 +120,7 @@ export default function AudioPlayer({ audioUrl, prompt, bookTitle, bookId, bookT
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
     >
-      <div className="relative bg-white rounded-lg border border-[#D4C4B0] overflow-hidden">
+      <div className="relative bg-white rounded-lg border border-black overflow-hidden">
         <div className="relative p-6 sm:p-8">
           {/* Header */}
           <div className="mb-6">
@@ -130,16 +130,16 @@ export default function AudioPlayer({ audioUrl, prompt, bookTitle, bookId, bookT
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <div className="p-2 bg-[#8B7355] rounded-lg">
+              <div className="p-2 bg-black rounded-lg">
                 <Music2 className="w-5 h-5 text-white" />
               </div>
-              <h2 className="text-xl sm:text-2xl font-bold text-[#3D3429]">
+              <h2 className="text-xl sm:text-2xl font-bold text-black">
                 Generated Soundtrack
               </h2>
-              <Sparkles className="w-5 h-5 text-[#A08968] animate-pulse" />
+              <Sparkles className="w-5 h-5 text-black animate-pulse" />
             </motion.div>
             <motion.p
-              className="text-[#6B5D4F] text-sm sm:text-base ml-14"
+              className="text-black text-sm sm:text-base ml-14"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
@@ -152,11 +152,11 @@ export default function AudioPlayer({ audioUrl, prompt, bookTitle, bookId, bookT
           <audio ref={audioRef} src={audioUrl} />
 
           {/* Waveform visualization placeholder */}
-          <div className="mb-6 h-16 sm:h-20 flex items-end justify-center gap-1 bg-[#F5F1E8] rounded-lg p-4">
+          <div className="mb-6 h-16 sm:h-20 flex items-end justify-center gap-1 bg-gray-100 rounded-lg p-4">
             {[...Array(40)].map((_, i) => (
               <motion.div
                 key={i}
-                className="w-1 bg-[#A08968] rounded-full"
+                className="w-1 bg-gray-400 rounded-full"
                 initial={{ height: '20%' }}
                 animate={{
                   height: isPlaying ? ['20%', '80%', '20%'] : '20%',
@@ -179,9 +179,9 @@ export default function AudioPlayer({ audioUrl, prompt, bookTitle, bookId, bookT
               max={duration || 0}
               value={currentTime}
               onChange={handleSeek}
-              className="w-full h-2 bg-[#E8E1D5] rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#8B7355] [&::-webkit-slider-thumb]:cursor-pointer"
+              className="w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-gray-400 [&::-webkit-slider-thumb]:cursor-pointer"
             />
-            <div className="flex justify-between text-xs text-[#6B5D4F] mt-2">
+            <div className="flex justify-between text-xs text-black mt-2">
               <span>{formatTime(currentTime)}</span>
               <span>{formatTime(duration)}</span>
             </div>
@@ -192,7 +192,7 @@ export default function AudioPlayer({ audioUrl, prompt, bookTitle, bookId, bookT
             {/* Play/Pause */}
             <motion.button
               onClick={togglePlayPause}
-              className="p-4 bg-[#8B7355] text-white rounded-full"
+              className="p-4 bg-black text-white rounded-full"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -207,12 +207,12 @@ export default function AudioPlayer({ audioUrl, prompt, bookTitle, bookId, bookT
             <div className="hidden sm:flex items-center gap-2 flex-1 max-w-xs">
               <button
                 onClick={toggleMute}
-                className="p-2 hover:bg-[#E8E1D5] rounded-lg transition-colors"
+                className="p-2 hover:bg-gray-200 rounded-lg transition-colors"
               >
                 {isMuted || volume === 0 ? (
-                  <VolumeX className="w-5 h-5 text-[#6B5D4F]" />
+                  <VolumeX className="w-5 h-5 text-black" />
                 ) : (
-                  <Volume2 className="w-5 h-5 text-[#6B5D4F]" />
+                  <Volume2 className="w-5 h-5 text-black" />
                 )}
               </button>
               <input
@@ -222,7 +222,7 @@ export default function AudioPlayer({ audioUrl, prompt, bookTitle, bookId, bookT
                 step="0.01"
                 value={volume}
                 onChange={handleVolumeChange}
-                className="flex-1 h-2 bg-[#E8E1D5] rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#8B7355] [&::-webkit-slider-thumb]:cursor-pointer"
+                className="flex-1 h-2 bg-gray-200 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-gray-400 [&::-webkit-slider-thumb]:cursor-pointer"
               />
             </div>
 
@@ -231,8 +231,8 @@ export default function AudioPlayer({ audioUrl, prompt, bookTitle, bookId, bookT
               onClick={toggleSave}
               className={`p-3 rounded-lg transition-colors ${
                 isSaved
-                  ? 'bg-[#8B7355] text-white'
-                  : 'bg-[#E8E1D5] text-[#8B7355] hover:bg-[#D4C4B0]'
+                  ? 'bg-black text-white'
+                  : 'bg-gray-200 text-black hover:bg-gray-300'
               }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -249,7 +249,7 @@ export default function AudioPlayer({ audioUrl, prompt, bookTitle, bookId, bookT
             <motion.a
               href={audioUrl}
               download
-              className="p-3 bg-[#E8E1D5] text-[#8B7355] rounded-lg hover:bg-[#D4C4B0] transition-colors"
+              className="p-3 bg-gray-200 text-black rounded-lg hover:bg-gray-300 transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -258,7 +258,7 @@ export default function AudioPlayer({ audioUrl, prompt, bookTitle, bookId, bookT
           </div>
 
           {/* Prompt toggle */}
-          <motion.button
+          {/* <motion.button
             onClick={() => setShowPrompt(!showPrompt)}
             className="mt-6 w-full text-left px-4 py-3 bg-[#F5F1E8] rounded-lg border border-[#E8E1D5] hover:border-[#D4C4B0] transition-all"
             whileHover={{ scale: 1.01 }}
@@ -276,7 +276,7 @@ export default function AudioPlayer({ audioUrl, prompt, bookTitle, bookId, bookT
                 </svg>
               </motion.div>
             </div>
-          </motion.button>
+          </motion.button> */}
 
           <AnimatePresence>
             {showPrompt && (
