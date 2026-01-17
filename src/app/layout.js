@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Sceneria - AI soundscapes for Reading",
+  title: "Sceneria - Soundscapes for Reading",
   description: "Generate ambient soundscapes that fits your book's mood and themes",
   viewport: "width=device-width, initial-scale=1, maximum-scale=5",
   themeColor: [

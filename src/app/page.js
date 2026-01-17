@@ -99,7 +99,7 @@ export default function Home() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
-            Transform your reading experience with AI-generated soundtracks tailored to your book&apos;s mood and atmosphere
+            Transform your reading experience with soundtracks tailored to your book&apos;s mood and atmosphere
           </motion.p>
 
 
@@ -210,7 +210,7 @@ export default function Home() {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.3 }}
                 >
-                  Our AI is crafting the perfect ambiance for your book
+                  Sceneria is crafting the perfect ambiance for your book
                 </motion.p>
 
                 <motion.div
