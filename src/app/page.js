@@ -101,26 +101,7 @@ export default function Home() {
             Transform your reading experience with AI-generated soundtracks tailored to your book&apos;s mood and atmosphere
           </motion.p>
 
-          {/* Feature badges */}
-          <motion.div
-            className="flex flex-wrap justify-center gap-2 mt-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-          >
-            {['🎵 AI-Powered', '📚 Book-Themed', '🎧 Immersive', '✨ Unique'].map((badge, i) => (
-              <motion.span
-                key={badge}
-                className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs sm:text-sm font-medium border border-gray-200"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.7 + i * 0.1 }}
-                whileHover={{ scale: 1.05 }}
-              >
-                {badge}
-              </motion.span>
-            ))}
-          </motion.div>
+
         </motion.div>
 
         {/* Navigation Tabs */}
