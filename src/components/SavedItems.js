@@ -185,11 +185,11 @@ function SavedAudioCard({ audio, onRemove, onPlay }) {
           </div>
 
           {/* Music Prompt */}
-          <div className="mb-4 p-3 rounded-lg" style={{ backgroundColor: 'var(--color-surface-light)' }}>
+          {/* <div className="mb-4 p-3 rounded-lg" style={{ backgroundColor: 'var(--color-surface-light)' }}>
             <p className="text-xs leading-relaxed line-clamp-2" style={{ color: 'var(--color-text-secondary)' }}>
               {audio.musicPrompt}
             </p>
-          </div>
+          </div> */}
 
           {/* Play button */}
           <motion.button
