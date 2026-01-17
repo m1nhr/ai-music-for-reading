@@ -71,7 +71,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F5F1E8]">
+    <div className="min-h-screen bg-white">
       <div className="container mx-auto px-4 py-8 sm:py-12">
         {/* Header */}
         <motion.div
@@ -86,14 +86,14 @@ export default function Home() {
             animate={{ scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#8B7355]">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-black">
               Soundscapes
             </h1>
             
           </motion.div>
 
           <motion.p
-            className="text-[#6B5D4F] text-base sm:text-lg max-w-2xl mx-auto px-4"
+            className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto px-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
@@ -111,7 +111,7 @@ export default function Home() {
             {['🎵 AI-Powered', '📚 Book-Themed', '🎧 Immersive', '✨ Unique'].map((badge, i) => (
               <motion.span
                 key={badge}
-                className="px-3 py-1 bg-[#E8E1D5] text-[#6B5D4F] rounded-full text-xs sm:text-sm font-medium"
+                className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs sm:text-sm font-medium border border-gray-200"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.7 + i * 0.1 }}
@@ -130,13 +130,13 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
-          <div className="flex gap-2 p-1 bg-white rounded-lg border border-[#D4C4B0] shadow-sm">
+          <div className="flex gap-2 p-1 bg-gray-50 rounded-lg border border-gray-200 shadow-sm">
             <button
               onClick={() => setActiveView('search')}
               className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-md font-medium transition-all ${
                 activeView === 'search'
-                  ? 'bg-[#8B7355] text-white shadow-md'
-                  : 'text-[#6B5D4F] hover:bg-[#E8E1D5]'
+                  ? 'bg-black text-white shadow-md'
+                  : 'text-gray-700 hover:bg-white'
               }`}
             >
               <Search className="w-5 h-5" />
@@ -146,8 +146,8 @@ export default function Home() {
               onClick={() => setActiveView('saved')}
               className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-md font-medium transition-all ${
                 activeView === 'saved'
-                  ? 'bg-[#8B7355] text-white shadow-md'
-                  : 'text-[#6B5D4F] hover:bg-[#E8E1D5]'
+                  ? 'bg-black text-white shadow-md'
+                  : 'text-gray-700 hover:bg-white'
               }`}
             >
               <BookmarkCheck className="w-5 h-5" />
@@ -165,21 +165,21 @@ export default function Home() {
         <AnimatePresence>
           {error && (
             <motion.div
-              className="w-full max-w-2xl mx-auto mt-6 p-4 bg-[#F9E5D9] border border-[#D4A574] rounded-lg"
+              className="w-full max-w-2xl mx-auto mt-6 p-4 bg-red-50 border border-red-200 rounded-lg"
               initial={{ opacity: 0, y: -20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
               transition={{ duration: 0.3 }}
             >
               <div className="flex items-start gap-3">
-                <AlertCircle className="w-5 h-5 text-[#B8860B] flex-shrink-0 mt-0.5" />
+                <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
                 <div className="flex-1">
-                  <p className="text-[#8B6914] font-medium">Error</p>
-                  <p className="text-[#6B5D4F] text-sm mt-1">{error}</p>
+                  <p className="text-red-900 font-medium">Error</p>
+                  <p className="text-red-700 text-sm mt-1">{error}</p>
                 </div>
                 <button
                   onClick={() => setError(null)}
-                  className="text-[#A08968] hover:text-[#8B7355] transition-colors"
+                  className="text-red-400 hover:text-red-600 transition-colors"
                 >
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -194,7 +194,7 @@ export default function Home() {
         <AnimatePresence>
           {isGenerating && (
             <motion.div
-              className="w-full max-w-2xl mx-auto mt-8 p-8 bg-[#EDE5D8] border border-[#D4C4B0] rounded-lg"
+              className="w-full max-w-2xl mx-auto mt-8 p-8 bg-gray-50 border border-gray-200 rounded-lg"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
@@ -202,15 +202,15 @@ export default function Home() {
             >
               <div className="text-center">
                 <motion.div
-                  className="inline-flex items-center justify-center w-16 h-16 bg-[#C9B89A] rounded-full mb-4"
+                  className="inline-flex items-center justify-center w-16 h-16 bg-black rounded-full mb-4"
                   animate={{ rotate: 360 }}
                   transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
                 >
-                  <Loader2 className="w-8 h-8 text-[#F5F1E8]" />
+                  <Loader2 className="w-8 h-8 text-white" />
                 </motion.div>
 
                 <motion.p
-                  className="text-xl font-bold text-[#8B7355] mb-2"
+                  className="text-xl font-bold text-black mb-2"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.2 }}
@@ -219,7 +219,7 @@ export default function Home() {
                 </motion.p>
 
                 <motion.p
-                  className="text-sm text-[#6B5D4F] mb-4"
+                  className="text-sm text-gray-600 mb-4"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.3 }}
@@ -236,7 +236,7 @@ export default function Home() {
                   {[...Array(3)].map((_, i) => (
                     <motion.div
                       key={i}
-                      className="w-2 h-2 bg-[#A08968] rounded-full"
+                      className="w-2 h-2 bg-gray-700 rounded-full"
                       animate={{ y: [0, -10, 0] }}
                       transition={{
                         duration: 0.6,
@@ -247,7 +247,7 @@ export default function Home() {
                   ))}
                 </motion.div>
 
-                <p className="text-xs text-[#9A8B7A] mt-6">
+                <p className="text-xs text-gray-500 mt-6">
                   This usually takes 30-60 seconds
                 </p>
               </div>
@@ -285,8 +285,8 @@ export default function Home() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
               >
-                <Loader2 className="w-8 h-8 text-[#A08968] animate-spin mx-auto mb-3" />
-                <p className="text-[#6B5D4F]">Searching for books...</p>
+                <Loader2 className="w-8 h-8 text-gray-700 animate-spin mx-auto mb-3" />
+                <p className="text-gray-600">Searching for books...</p>
               </motion.div>
             )}
           </>

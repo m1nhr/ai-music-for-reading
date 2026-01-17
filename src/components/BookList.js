@@ -41,7 +41,7 @@ function BookCard({ book, onGenerateMusic, isGenerating }) {
       className="group relative"
     >
       <motion.div
-        className="flex flex-col sm:flex-row gap-4 p-4 sm:p-6 bg-white rounded-lg border border-[#D4C4B0] hover:border-[#A08968] transition-all duration-300"
+        className="flex flex-col sm:flex-row gap-4 p-4 sm:p-6 bg-white rounded-lg border border-gray-800 hover:border-black hover:border-2 transition-all duration-300"
         whileHover={{ y: -4 }}
         transition={{ duration: 0.2 }}
       >
@@ -80,8 +80,8 @@ function BookCard({ book, onGenerateMusic, isGenerating }) {
               onClick={toggleSave}
               className={`p-2 rounded-lg transition-colors flex-shrink-0 ${
                 isSaved
-                  ? 'bg-[#8B7355] text-white'
-                  : 'bg-[#E8E1D5] text-[#8B7355] hover:bg-[#D4C4B0]'
+                  ? 'bg-gray-200 text-white'
+                  : 'bg-[#E8E1D5] text-black hover:bg-[#D4C4B0]'
               }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
