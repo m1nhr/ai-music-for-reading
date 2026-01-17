@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { AlertCircle, Loader2, Music, Headphones, Search, BookmarkCheck } from 'lucide-react';
+import { AlertCircle, Loader2, Music, Headphones, Search, BookmarkCheck, BookOpen } from 'lucide-react';
 import BookSearch from '@/components/BookSearch';
 import BookList from '@/components/BookList';
 import AudioPlayer from '@/components/AudioPlayer';
@@ -255,8 +255,32 @@ export default function Home() {
               )}
             </AnimatePresence>
 
+            {/* Empty state - before first search */}
+            {!isSearching && books.length === 0 && (
+              <motion.div
+                className="w-full max-w-2xl mx-auto mt-12 px-4 sm:px-0"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+              >
+                <div className="text-center py-16">
+                  <motion.div
+                    className="inline-block p-6 rounded-full mb-6"
+                    style={{ backgroundColor: 'var(--color-surface-light)' }}
+                    animate={{ rotate: [0, 10, -10, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                  >
+                    <BookOpen className="w-12 h-12" style={{ color: 'var(--color-text-tertiary)' }} />
+                  </motion.div>
+                  <h2 className="text-2xl font-bold mb-2" style={{ color: 'var(--color-text-primary)' }}>Start your journey</h2>
+                  <p className="mb-6" style={{ color: 'var(--color-text-secondary)' }}>
+                    Search for a book to create its perfect soundtrack
+                  </p>
+                </div>
+              </motion.div>
+            )}
+
             {/* Book Results */}
-            {!isSearching && (
+            {!isSearching && books.length > 0 && (
               <BookList
                 books={books}
                 onGenerateMusic={handleGenerateMusic}
