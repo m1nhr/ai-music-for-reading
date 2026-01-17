@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BookmarkCheck, Music2, BookOpen, Play, Trash2, Library } from 'lucide-react';
 import { getSavedBooks, getSavedAudios, unsaveBook, unsaveAudio } from '@/lib/storage';
+import AudioPlayer from './AudioPlayer';
 
 const container = {
   hidden: { opacity: 0 },
@@ -114,7 +115,7 @@ function SavedBookCard({ book, onRemove }) {
   );
 }
 
-function SavedAudioCard({ audio, onRemove }) {
+function SavedAudioCard({ audio, onRemove, onPlay }) {
   const handleRemove = () => {
     unsaveAudio(audio.id);
     onRemove();
@@ -191,10 +192,8 @@ function SavedAudioCard({ audio, onRemove }) {
           </div>
 
           {/* Play button */}
-          <motion.a
-            href={audio.audioUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+          <motion.button
+            onClick={() => onPlay(audio)}
             className="inline-flex items-center gap-2 px-4 py-2 text-white rounded-lg transition-colors"
             style={{ backgroundColor: 'var(--color-primary)' }}
             whileHover={{ scale: 1.02 }}
@@ -202,7 +201,7 @@ function SavedAudioCard({ audio, onRemove }) {
           >
             <Play className="w-4 h-4" />
             <span className="text-sm font-medium">Play Audio</span>
-          </motion.a>
+          </motion.button>
         </div>
       </motion.div>
     </motion.div>
@@ -213,6 +212,7 @@ export default function SavedItems() {
   const [savedBooks, setSavedBooks] = useState([]);
   const [savedAudios, setSavedAudios] = useState([]);
   const [activeTab, setActiveTab] = useState('books');
+  const [playingAudio, setPlayingAudio] = useState(null);
 
   const loadSavedItems = () => {
     setSavedBooks(getSavedBooks());
@@ -349,12 +349,24 @@ export default function SavedItems() {
                   key={audio.id}
                   audio={audio}
                   onRemove={loadSavedItems}
+                  onPlay={setPlayingAudio}
                 />
               ))
             )}
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Audio Player */}
+      {playingAudio && (
+        <AudioPlayer
+          audioUrl={playingAudio.audioUrl}
+          prompt={playingAudio.musicPrompt}
+          bookTitle={playingAudio.bookTitle}
+          bookId={playingAudio.bookId}
+          bookThumbnail={playingAudio.bookThumbnail}
+        />
+      )}
     </motion.div>
   );
 }

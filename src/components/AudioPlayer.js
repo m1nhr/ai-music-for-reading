@@ -150,7 +150,7 @@ export default function AudioPlayer({ audioUrl, prompt, bookTitle, bookId, bookT
           </div>
 
           {/* Audio element */}
-          <audio ref={audioRef} src={audioUrl} />
+          <audio ref={audioRef} src={audioUrl} loop />
 
           {/* Waveform visualization placeholder */}
           <div className="mb-6 h-16 sm:h-20 flex items-end justify-center gap-1 rounded-lg p-4" style={{ backgroundColor: 'var(--color-surface-light)' }}>
@@ -175,7 +175,7 @@ export default function AudioPlayer({ audioUrl, prompt, bookTitle, bookId, bookT
 
           {/* Progress bar */}
           <div className="mb-4">
-            <input
+            {/* <input
               type="range"
               min="0"
               max={duration || 0}
@@ -183,11 +183,7 @@ export default function AudioPlayer({ audioUrl, prompt, bookTitle, bookId, bookT
               onChange={handleSeek}
               className="w-full h-2 rounded-full appearance-none cursor-pointer"
               style={{ backgroundColor: 'var(--color-border)' }}
-            />
-            <div className="flex justify-between text-xs mt-2" style={{ color: 'var(--color-text-primary)' }}>
-              <span>{formatTime(currentTime)}</span>
-              <span>{formatTime(duration)}</span>
-            </div>
+            /> */}
           </div>
 
           {/* Controls */}
@@ -252,7 +248,7 @@ export default function AudioPlayer({ audioUrl, prompt, bookTitle, bookId, bookT
             </motion.button>
 
             {/* Download button */}
-            <motion.a
+            {/* <motion.a
               href={audioUrl}
               download
               className="p-3 rounded-lg transition-colors"
@@ -261,7 +257,7 @@ export default function AudioPlayer({ audioUrl, prompt, bookTitle, bookId, bookT
               whileTap={{ scale: 0.95 }}
             >
               <Download className="w-5 h-5" />
-            </motion.a>
+            </motion.a> */}
           </div>
 
           {/* Prompt toggle */}
