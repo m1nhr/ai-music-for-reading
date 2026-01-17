@@ -74,28 +74,7 @@ export default function BookSearch({ onSearch }) {
       </div>
 
       {/* Search suggestions/hints */}
-      <motion.div
-        className="mt-3 flex flex-wrap gap-2 justify-center"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.3 }}
-      >
-        {['Fantasy', 'Mystery', 'Romance', 'Sci-Fi'].map((genre, index) => (
-          <motion.button
-            key={genre}
-            type="button"
-            onClick={() => setQuery(genre)}
-            className="px-3 py-1 text-xs sm:text-sm bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-colors border border-gray-200"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.4 + index * 0.1 }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            {genre}
-          </motion.button>
-        ))}
-      </motion.div>
+      
     </motion.form>
   );
 }

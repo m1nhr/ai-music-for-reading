@@ -7,6 +7,7 @@ import BookSearch from '@/components/BookSearch';
 import BookList from '@/components/BookList';
 import AudioPlayer from '@/components/AudioPlayer';
 import SavedItems from '@/components/SavedItems';
+import PreferencesSelector from '@/components/PreferencesSelector';
 import { searchBooks } from '@/lib/google-books';
 
 export default function Home() {
@@ -16,6 +17,10 @@ export default function Home() {
   const [generatedMusic, setGeneratedMusic] = useState(null);
   const [error, setError] = useState(null);
   const [activeView, setActiveView] = useState('search'); // 'search' or 'saved'
+  const [preferences, setPreferences] = useState({
+    general: 'none',
+    action: 'none'
+  });
 
   const handleSearch = async (query) => {
     try {
@@ -46,6 +51,7 @@ export default function Home() {
           title: book.title,
           description: book.description,
           categories: book.categories,
+          preferences: preferences,
         }),
       });
 
@@ -140,6 +146,10 @@ export default function Home() {
         {/* Search View */}
         {activeView === 'search' && (
           <>
+            <PreferencesSelector 
+              preferences={preferences}
+              onPreferencesChange={setPreferences}
+            />
             <BookSearch onSearch={handleSearch} />
 
         {/* Error Message */}

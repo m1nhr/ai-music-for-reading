@@ -4,7 +4,7 @@ import { generateMusic } from '@/lib/replicate';
 
 export async function POST(request) {
   try {
-    const { title, description, categories } = await request.json();
+    const { title, description, categories, preferences } = await request.json();
 
     if (!title) {
       return NextResponse.json(
@@ -15,7 +15,8 @@ export async function POST(request) {
 
     // Step 1: Generate music prompt using Gemini
     console.log('Generating music prompt for:', title);
-    const musicPrompt = await generateMusicPrompt(title, description, categories);
+    console.log('User preferences:', preferences);
+    const musicPrompt = await generateMusicPrompt(title, description, categories, preferences);
     console.log('Generated prompt:', musicPrompt);
 
     // Step 2: Generate music using Replicate
