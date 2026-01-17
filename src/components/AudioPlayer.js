@@ -2,16 +2,25 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Pause, Volume2, VolumeX, Download, Music2, Sparkles } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, Download, Music2, Sparkles, Bookmark, BookmarkCheck } from 'lucide-react';
+import { saveAudio, unsaveAudio, isAudioSaved } from '@/lib/storage';
 
-export default function AudioPlayer({ audioUrl, prompt, bookTitle }) {
+export default function AudioPlayer({ audioUrl, prompt, bookTitle, bookId, bookThumbnail }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
   const [showPrompt, setShowPrompt] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
   const audioRef = useRef(null);
+
+  // Check if audio is saved on mount
+  useEffect(() => {
+    if (bookId) {
+      setIsSaved(isAudioSaved(bookId));
+    }
+  }, [bookId]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -74,6 +83,30 @@ export default function AudioPlayer({ audioUrl, prompt, bookTitle }) {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  };
+
+  const toggleSave = () => {
+    if (isSaved) {
+      // Find and remove the saved audio
+      const savedAudios = JSON.parse(localStorage.getItem('bookbeats_saved_audios') || '[]');
+      const audioToRemove = savedAudios.find(a => a.bookId === bookId);
+      if (audioToRemove) {
+        unsaveAudio(audioToRemove.id);
+        setIsSaved(false);
+      }
+    } else {
+      // Save the audio
+      const result = saveAudio({
+        audioUrl,
+        musicPrompt: prompt,
+        bookTitle,
+        bookId,
+        bookThumbnail
+      });
+      if (result.success) {
+        setIsSaved(true);
+      }
+    }
   };
 
   if (!audioUrl) {
@@ -192,6 +225,25 @@ export default function AudioPlayer({ audioUrl, prompt, bookTitle }) {
                 className="flex-1 h-2 bg-[#E8E1D5] rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#8B7355] [&::-webkit-slider-thumb]:cursor-pointer"
               />
             </div>
+
+            {/* Save button */}
+            <motion.button
+              onClick={toggleSave}
+              className={`p-3 rounded-lg transition-colors ${
+                isSaved
+                  ? 'bg-[#8B7355] text-white'
+                  : 'bg-[#E8E1D5] text-[#8B7355] hover:bg-[#D4C4B0]'
+              }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              title={isSaved ? 'Unsave audio' : 'Save audio'}
+            >
+              {isSaved ? (
+                <BookmarkCheck className="w-5 h-5" />
+              ) : (
+                <Bookmark className="w-5 h-5" />
+              )}
+            </motion.button>
 
             {/* Download button */}
             <motion.a

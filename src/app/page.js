@@ -2,10 +2,11 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { AlertCircle, Loader2, Music, Headphones } from 'lucide-react';
+import { AlertCircle, Loader2, Music, Headphones, Search, BookmarkCheck } from 'lucide-react';
 import BookSearch from '@/components/BookSearch';
 import BookList from '@/components/BookList';
 import AudioPlayer from '@/components/AudioPlayer';
+import SavedItems from '@/components/SavedItems';
 import { searchBooks } from '@/lib/google-books';
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedMusic, setGeneratedMusic] = useState(null);
   const [error, setError] = useState(null);
+  const [activeView, setActiveView] = useState('search'); // 'search' or 'saved'
 
   const handleSearch = async (query) => {
     try {
@@ -57,6 +59,8 @@ export default function Home() {
         audioUrl: data.audioUrl,
         prompt: data.prompt,
         bookTitle: book.title,
+        bookId: book.id,
+        bookThumbnail: book.thumbnail,
       });
     } catch (err) {
       setError(err.message || 'Failed to generate music. Please try again.');
@@ -89,7 +93,7 @@ export default function Home() {
               <Headphones className="w-10 h-10 sm:w-12 sm:h-12 text-[#A08968]" />
             </motion.div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#8B7355]">
-              BookBeats
+              Immersio
             </h1>
             <motion.div
               animate={{ rotate: [0, -10, 10, 0] }}
@@ -130,8 +134,43 @@ export default function Home() {
           </motion.div>
         </motion.div>
 
-        {/* Search */}
-        <BookSearch onSearch={handleSearch} />
+        {/* Navigation Tabs */}
+        <motion.div
+          className="w-full max-w-2xl mx-auto mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+        >
+          <div className="flex gap-2 p-1 bg-white rounded-lg border border-[#D4C4B0] shadow-sm">
+            <button
+              onClick={() => setActiveView('search')}
+              className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-md font-medium transition-all ${
+                activeView === 'search'
+                  ? 'bg-[#8B7355] text-white shadow-md'
+                  : 'text-[#6B5D4F] hover:bg-[#E8E1D5]'
+              }`}
+            >
+              <Search className="w-5 h-5" />
+              <span>Search Books</span>
+            </button>
+            <button
+              onClick={() => setActiveView('saved')}
+              className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-md font-medium transition-all ${
+                activeView === 'saved'
+                  ? 'bg-[#8B7355] text-white shadow-md'
+                  : 'text-[#6B5D4F] hover:bg-[#E8E1D5]'
+              }`}
+            >
+              <BookmarkCheck className="w-5 h-5" />
+              <span>My Library</span>
+            </button>
+          </div>
+        </motion.div>
+
+        {/* Search View */}
+        {activeView === 'search' && (
+          <>
+            <BookSearch onSearch={handleSearch} />
 
         {/* Error Message */}
         <AnimatePresence>
@@ -227,38 +266,45 @@ export default function Home() {
           )}
         </AnimatePresence>
 
-        {/* Audio Player */}
-        <AnimatePresence mode="wait">
-          {generatedMusic && (
-            <AudioPlayer
-              audioUrl={generatedMusic.audioUrl}
-              prompt={generatedMusic.prompt}
-              bookTitle={generatedMusic.bookTitle}
-            />
-          )}
-        </AnimatePresence>
+            {/* Audio Player */}
+            <AnimatePresence mode="wait">
+              {generatedMusic && (
+                <AudioPlayer
+                  audioUrl={generatedMusic.audioUrl}
+                  prompt={generatedMusic.prompt}
+                  bookTitle={generatedMusic.bookTitle}
+                  bookId={generatedMusic.bookId}
+                  bookThumbnail={generatedMusic.bookThumbnail}
+                />
+              )}
+            </AnimatePresence>
 
-        {/* Book Results */}
-        {!isSearching && (
-          <BookList
-            books={books}
-            onGenerateMusic={handleGenerateMusic}
-            isGenerating={isGenerating}
-          />
+            {/* Book Results */}
+            {!isSearching && (
+              <BookList
+                books={books}
+                onGenerateMusic={handleGenerateMusic}
+                isGenerating={isGenerating}
+              />
+            )}
+
+            {/* Searching state */}
+            {isSearching && (
+              <motion.div
+                className="w-full max-w-2xl mx-auto mt-12 text-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <Loader2 className="w-8 h-8 text-[#A08968] animate-spin mx-auto mb-3" />
+                <p className="text-[#6B5D4F]">Searching for books...</p>
+              </motion.div>
+            )}
+          </>
         )}
 
-        {/* Searching state */}
-        {isSearching && (
-          <motion.div
-            className="w-full max-w-2xl mx-auto mt-12 text-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <Loader2 className="w-8 h-8 text-[#A08968] animate-spin mx-auto mb-3" />
-            <p className="text-[#6B5D4F]">Searching for books...</p>
-          </motion.div>
-        )}
+        {/* Saved Items View */}
+        {activeView === 'saved' && <SavedItems />}
       </div>
     </div>
   );
