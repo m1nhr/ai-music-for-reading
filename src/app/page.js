@@ -86,21 +86,10 @@ export default function Home() {
             animate={{ scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <motion.div
-              animate={{ rotate: [0, 10, -10, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            >
-              <Headphones className="w-10 h-10 sm:w-12 sm:h-12 text-[#A08968]" />
-            </motion.div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#8B7355]">
-              Immersio
+              Soundscapes
             </h1>
-            <motion.div
-              animate={{ rotate: [0, -10, 10, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-            >
-              <Music className="w-10 h-10 sm:w-12 sm:h-12 text-[#A08968]" />
-            </motion.div>
+            
           </motion.div>
 
           <motion.p

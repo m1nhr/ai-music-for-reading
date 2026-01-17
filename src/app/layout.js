@@ -1,8 +1,8 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Immersio - AI Music for Reading",
-  description: "Generate ambient AI music that fits your book's mood and themes",
+  title: "Soundscapes - AI soundscapes for Reading",
+  description: "Generate ambient soundscapes that fits your book's mood and themes",
   viewport: "width=device-width, initial-scale=1, maximum-scale=5",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#fafaf9" },
