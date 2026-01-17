@@ -1,4 +1,4 @@
-# Immersio - AI Music Generator for Book Reading
+# Sceneria - AI Music Generator for Book Reading
 
 An AI-powered application that generates ambient/instrumental music tailored to the mood and themes of books you're reading.
 
