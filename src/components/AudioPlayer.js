@@ -134,7 +134,7 @@ export default function AudioPlayer({ audioUrl, prompt, bookTitle, bookId, bookT
                 <Music2 className="w-5 h-5 text-white" />
               </div>
               <h2 className="text-xl sm:text-2xl font-bold" style={{ color: 'var(--color-text-primary)' }}>
-                Generated Soundtrack
+                Composition
               </h2>
               <Sparkles className="w-5 h-5 animate-pulse" style={{ color: 'var(--color-accent)' }} />
             </motion.div>
