@@ -12,9 +12,9 @@ export async function generateMusicPrompt(bookTitle, bookDescription, categories
       model: "gemini-2.5-flash",
     });
 
-    const prompt = `You are a music director. Given a book's title and description, generate a short music prompt for an AI music generator. The music will be played while someone reads this book.
+    const prompt = `You are a music director. Given a book's title and description, generate a short music prompt for an AI music generator. The music will be played while someone reads this book so it has to keep the same tone, no big variations.
 
-Output ONLY the prompt, nothing else. Keep it under 50 words.
+Output ONLY the prompt, nothing else.
 
 Format: [genre], [mood], [tempo], [instruments], [atmosphere], instrumental, no vocals
 
