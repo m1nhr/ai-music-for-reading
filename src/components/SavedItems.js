@@ -34,8 +34,12 @@ function SavedBookCard({ book, onRemove }) {
       className="group relative"
     >
       <motion.div
-        className="flex flex-col sm:flex-row gap-4 p-4 sm:p-6 bg-white rounded-lg border border-gray-300 hover:border-black transition-all duration-300"
-        whileHover={{ y: -4 }}
+        className="flex flex-col sm:flex-row gap-4 p-4 sm:p-6 rounded-lg border transition-all duration-300"
+        style={{
+          backgroundColor: 'var(--color-surface)',
+          borderColor: 'var(--color-border)'
+        }}
+        whileHover={{ y: -4, borderColor: 'var(--color-primary)' }}
         transition={{ duration: 0.2 }}
       >
         {/* Book Cover */}
@@ -55,8 +59,8 @@ function SavedBookCard({ book, onRemove }) {
               />
             </div>
           ) : (
-            <div className="w-[100px] h-[150px] bg-gray-100 rounded-lg flex items-center justify-center">
-              <BookOpen className="w-8 h-8 text-gray-400" />
+            <div className="w-[100px] h-[150px] rounded-lg flex items-center justify-center" style={{ backgroundColor: 'var(--color-surface-light)' }}>
+              <BookOpen className="w-8 h-8" style={{ color: 'var(--color-text-tertiary)' }} />
             </div>
           )}
         </motion.div>
@@ -64,7 +68,7 @@ function SavedBookCard({ book, onRemove }) {
         {/* Book Details */}
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-2 mb-2">
-            <h3 className="font-bold text-lg sm:text-xl text-black line-clamp-2 group-hover:text-gray-700 transition-colors flex-1">
+            <h3 className="font-bold text-lg sm:text-xl line-clamp-2 transition-colors flex-1" style={{ color: 'var(--color-text-primary)' }}>
               {book.title}
             </h3>
 
@@ -81,12 +85,12 @@ function SavedBookCard({ book, onRemove }) {
           </div>
 
           <div className="flex items-center gap-2 mb-3">
-            <p className="text-gray-600 text-sm">
+            <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
               {book.authors?.join(', ') || 'Unknown author'}
             </p>
           </div>
 
-          <p className="text-gray-600 text-sm leading-relaxed line-clamp-2 sm:line-clamp-3 mb-4">
+          <p className="text-sm leading-relaxed line-clamp-2 sm:line-clamp-3 mb-4" style={{ color: 'var(--color-text-secondary)' }}>
             {book.description || 'No description available'}
           </p>
 
@@ -96,7 +100,8 @@ function SavedBookCard({ book, onRemove }) {
               {book.categories.slice(0, 3).map((category, idx) => (
                 <span
                   key={idx}
-                  className="px-2 py-1 bg-gray-100 text-gray-700 rounded-md text-xs font-medium"
+                  className="px-2 py-1 rounded-md text-xs font-medium"
+                  style={{ backgroundColor: 'var(--color-accent)', color: 'var(--color-text-primary)' }}
                 >
                   {category}
                 </span>
@@ -122,8 +127,12 @@ function SavedAudioCard({ audio, onRemove }) {
       className="group relative"
     >
       <motion.div
-        className="flex flex-col sm:flex-row gap-4 p-4 sm:p-6 bg-white rounded-lg border border-gray-300 hover:border-black transition-all duration-300"
-        whileHover={{ y: -4 }}
+        className="flex flex-col sm:flex-row gap-4 p-4 sm:p-6 rounded-lg border transition-all duration-300"
+        style={{
+          backgroundColor: 'var(--color-surface)',
+          borderColor: 'var(--color-border)'
+        }}
+        whileHover={{ y: -4, borderColor: 'var(--color-primary)' }}
         transition={{ duration: 0.2 }}
       >
         {/* Book Cover */}
@@ -146,8 +155,8 @@ function SavedAudioCard({ audio, onRemove }) {
               </div>
             </div>
           ) : (
-            <div className="w-[100px] h-[150px] bg-gray-100 rounded-lg flex items-center justify-center">
-              <Music2 className="w-8 h-8 text-gray-400" />
+            <div className="w-[100px] h-[150px] rounded-lg flex items-center justify-center" style={{ backgroundColor: 'var(--color-surface-light)' }}>
+              <Music2 className="w-8 h-8" style={{ color: 'var(--color-text-tertiary)' }} />
             </div>
           )}
         </motion.div>
@@ -156,10 +165,10 @@ function SavedAudioCard({ audio, onRemove }) {
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-2 mb-2">
             <div className="flex-1">
-              <h3 className="font-bold text-lg sm:text-xl text-black line-clamp-2 group-hover:text-gray-700 transition-colors">
+              <h3 className="font-bold text-lg sm:text-xl line-clamp-2 transition-colors" style={{ color: 'var(--color-text-primary)' }}>
                 {audio.bookTitle}
               </h3>
-              <p className="text-xs text-gray-500 mt-1">Soundtrack</p>
+              <p className="text-xs mt-1" style={{ color: 'var(--color-text-tertiary)' }}>Soundtrack</p>
             </div>
 
             {/* Remove button */}
@@ -175,8 +184,8 @@ function SavedAudioCard({ audio, onRemove }) {
           </div>
 
           {/* Music Prompt */}
-          <div className="mb-4 p-3 bg-gray-50 rounded-lg">
-            <p className="text-xs text-gray-600 leading-relaxed line-clamp-2">
+          <div className="mb-4 p-3 rounded-lg" style={{ backgroundColor: 'var(--color-surface-light)' }}>
+            <p className="text-xs leading-relaxed line-clamp-2" style={{ color: 'var(--color-text-secondary)' }}>
               {audio.musicPrompt}
             </p>
           </div>
@@ -186,7 +195,8 @@ function SavedAudioCard({ audio, onRemove }) {
             href={audio.audioUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 text-white rounded-lg transition-colors"
+            style={{ backgroundColor: 'var(--color-primary)' }}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
@@ -224,14 +234,15 @@ export default function SavedItems() {
       >
         <div className="text-center py-16">
           <motion.div
-            className="inline-block p-6 bg-gray-100 rounded-full mb-6"
+            className="inline-block p-6 rounded-full mb-6"
+            style={{ backgroundColor: 'var(--color-surface-light)' }}
             animate={{ rotate: [0, 10, -10, 0] }}
             transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
           >
-            <Library className="w-12 h-12 text-gray-400" />
+            <Library className="w-12 h-12" style={{ color: 'var(--color-text-tertiary)' }} />
           </motion.div>
-          <h2 className="text-2xl font-bold text-black mb-2">No saved items yet</h2>
-          <p className="text-gray-600 mb-6">
+          <h2 className="text-2xl font-bold mb-2" style={{ color: 'var(--color-text-primary)' }}>No saved items yet</h2>
+          <p className="mb-6" style={{ color: 'var(--color-text-secondary)' }}>
             Start saving books and audio tracks to build your library
           </p>
         </div>
@@ -253,29 +264,29 @@ export default function SavedItems() {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
         >
-          <BookmarkCheck className="w-6 h-6 text-black" />
-          <h2 className="text-2xl font-bold text-black">My Library</h2>
+          <BookmarkCheck className="w-6 h-6" style={{ color: 'var(--color-text-primary)' }} />
+          <h2 className="text-2xl font-bold" style={{ color: 'var(--color-text-primary)' }}>My Library</h2>
         </motion.div>
 
         {/* Tab buttons */}
-        <div className="flex gap-2 border-b border-gray-300">
+        <div className="flex gap-2 border-b" style={{ borderColor: 'var(--color-border)' }}>
           <button
             onClick={() => setActiveTab('books')}
-            className={`px-4 py-2 font-medium transition-all ${
-              activeTab === 'books'
-                ? 'text-black border-b-2 border-black'
-                : 'text-gray-600 hover:text-black'
-            }`}
+            className="px-4 py-2 font-medium transition-all"
+            style={activeTab === 'books' ?
+              { color: 'var(--color-text-primary)', borderBottom: '2px solid var(--color-primary)' } :
+              { color: 'var(--color-text-secondary)' }
+            }
           >
             Saved Books ({savedBooks.length})
           </button>
           <button
             onClick={() => setActiveTab('audios')}
-            className={`px-4 py-2 font-medium transition-all ${
-              activeTab === 'audios'
-                ? 'text-black border-b-2 border-black'
-                : 'text-gray-600 hover:text-black'
-            }`}
+            className="px-4 py-2 font-medium transition-all"
+            style={activeTab === 'audios' ?
+              { color: 'var(--color-text-primary)', borderBottom: '2px solid var(--color-primary)' } :
+              { color: 'var(--color-text-secondary)' }
+            }
           >
             Saved Audios ({savedAudios.length})
           </button>
@@ -296,10 +307,11 @@ export default function SavedItems() {
             {savedBooks.length === 0 ? (
               <motion.div
                 variants={item}
-                className="text-center py-12 bg-white rounded-lg border border-gray-300"
+                className="text-center py-12 rounded-lg border"
+                style={{ backgroundColor: 'var(--color-surface)', borderColor: 'var(--color-border)' }}
               >
-                <BookOpen className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-600">No saved books yet</p>
+                <BookOpen className="w-12 h-12 mx-auto mb-4" style={{ color: 'var(--color-text-tertiary)' }} />
+                <p style={{ color: 'var(--color-text-secondary)' }}>No saved books yet</p>
               </motion.div>
             ) : (
               savedBooks.map((book) => (
@@ -325,10 +337,11 @@ export default function SavedItems() {
             {savedAudios.length === 0 ? (
               <motion.div
                 variants={item}
-                className="text-center py-12 bg-white rounded-lg border border-gray-300"
+                className="text-center py-12 rounded-lg border"
+                style={{ backgroundColor: 'var(--color-surface)', borderColor: 'var(--color-border)' }}
               >
-                <Music2 className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-600">No saved audio tracks yet</p>
+                <Music2 className="w-12 h-12 mx-auto mb-4" style={{ color: 'var(--color-text-tertiary)' }} />
+                <p style={{ color: 'var(--color-text-secondary)' }}>No saved audio tracks yet</p>
               </motion.div>
             ) : (
               savedAudios.map((audio) => (

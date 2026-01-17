@@ -120,7 +120,7 @@ export default function AudioPlayer({ audioUrl, prompt, bookTitle, bookId, bookT
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
     >
-      <div className="relative bg-white rounded-lg border border-black overflow-hidden">
+      <div className="relative rounded-lg border overflow-hidden" style={{ backgroundColor: 'var(--color-surface)', borderColor: 'var(--color-primary)' }}>
         <div className="relative p-6 sm:p-8">
           {/* Header */}
           <div className="mb-6">
@@ -130,16 +130,17 @@ export default function AudioPlayer({ audioUrl, prompt, bookTitle, bookId, bookT
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <div className="p-2 bg-black rounded-lg">
+              <div className="p-2 rounded-lg" style={{ backgroundColor: 'var(--color-primary)' }}>
                 <Music2 className="w-5 h-5 text-white" />
               </div>
-              <h2 className="text-xl sm:text-2xl font-bold text-black">
+              <h2 className="text-xl sm:text-2xl font-bold" style={{ color: 'var(--color-text-primary)' }}>
                 Generated Soundtrack
               </h2>
-              <Sparkles className="w-5 h-5 text-black animate-pulse" />
+              <Sparkles className="w-5 h-5 animate-pulse" style={{ color: 'var(--color-accent)' }} />
             </motion.div>
             <motion.p
-              className="text-black text-sm sm:text-base ml-14"
+              className="text-sm sm:text-base ml-14"
+              style={{ color: 'var(--color-text-primary)' }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
@@ -152,11 +153,12 @@ export default function AudioPlayer({ audioUrl, prompt, bookTitle, bookId, bookT
           <audio ref={audioRef} src={audioUrl} />
 
           {/* Waveform visualization placeholder */}
-          <div className="mb-6 h-16 sm:h-20 flex items-end justify-center gap-1 bg-gray-100 rounded-lg p-4">
+          <div className="mb-6 h-16 sm:h-20 flex items-end justify-center gap-1 rounded-lg p-4" style={{ backgroundColor: 'var(--color-surface-light)' }}>
             {[...Array(40)].map((_, i) => (
               <motion.div
                 key={i}
-                className="w-1 bg-gray-400 rounded-full"
+                className="w-1 rounded-full"
+                style={{ backgroundColor: 'var(--color-accent)' }}
                 initial={{ height: '20%' }}
                 animate={{
                   height: isPlaying ? ['20%', '80%', '20%'] : '20%',
@@ -179,9 +181,10 @@ export default function AudioPlayer({ audioUrl, prompt, bookTitle, bookId, bookT
               max={duration || 0}
               value={currentTime}
               onChange={handleSeek}
-              className="w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-gray-400 [&::-webkit-slider-thumb]:cursor-pointer"
+              className="w-full h-2 rounded-full appearance-none cursor-pointer"
+              style={{ backgroundColor: 'var(--color-border)' }}
             />
-            <div className="flex justify-between text-xs text-black mt-2">
+            <div className="flex justify-between text-xs mt-2" style={{ color: 'var(--color-text-primary)' }}>
               <span>{formatTime(currentTime)}</span>
               <span>{formatTime(duration)}</span>
             </div>
@@ -192,7 +195,8 @@ export default function AudioPlayer({ audioUrl, prompt, bookTitle, bookId, bookT
             {/* Play/Pause */}
             <motion.button
               onClick={togglePlayPause}
-              className="p-4 bg-black text-white rounded-full"
+              className="p-4 text-white rounded-full"
+              style={{ backgroundColor: 'var(--color-primary)' }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -207,12 +211,13 @@ export default function AudioPlayer({ audioUrl, prompt, bookTitle, bookId, bookT
             <div className="hidden sm:flex items-center gap-2 flex-1 max-w-xs">
               <button
                 onClick={toggleMute}
-                className="p-2 hover:bg-gray-200 rounded-lg transition-colors"
+                className="p-2 rounded-lg transition-colors"
+                style={{ backgroundColor: 'var(--color-surface-light)' }}
               >
                 {isMuted || volume === 0 ? (
-                  <VolumeX className="w-5 h-5 text-black" />
+                  <VolumeX className="w-5 h-5" style={{ color: 'var(--color-text-primary)' }} />
                 ) : (
-                  <Volume2 className="w-5 h-5 text-black" />
+                  <Volume2 className="w-5 h-5" style={{ color: 'var(--color-text-primary)' }} />
                 )}
               </button>
               <input
@@ -222,18 +227,19 @@ export default function AudioPlayer({ audioUrl, prompt, bookTitle, bookId, bookT
                 step="0.01"
                 value={volume}
                 onChange={handleVolumeChange}
-                className="flex-1 h-2 bg-gray-200 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-gray-400 [&::-webkit-slider-thumb]:cursor-pointer"
+                className="flex-1 h-2 rounded-full appearance-none cursor-pointer"
+                style={{ backgroundColor: 'var(--color-border)' }}
               />
             </div>
 
             {/* Save button */}
             <motion.button
               onClick={toggleSave}
-              className={`p-3 rounded-lg transition-colors ${
-                isSaved
-                  ? 'bg-black text-white'
-                  : 'bg-gray-200 text-black hover:bg-gray-300'
-              }`}
+              className="p-3 rounded-lg transition-colors"
+              style={isSaved ?
+                { backgroundColor: 'var(--color-primary)', color: 'white' } :
+                { backgroundColor: 'var(--color-surface-light)', color: 'var(--color-text-primary)' }
+              }
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               title={isSaved ? 'Unsave audio' : 'Save audio'}
@@ -249,7 +255,8 @@ export default function AudioPlayer({ audioUrl, prompt, bookTitle, bookId, bookT
             <motion.a
               href={audioUrl}
               download
-              className="p-3 bg-gray-200 text-black rounded-lg hover:bg-gray-300 transition-colors"
+              className="p-3 rounded-lg transition-colors"
+              style={{ backgroundColor: 'var(--color-surface-light)', color: 'var(--color-text-primary)' }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

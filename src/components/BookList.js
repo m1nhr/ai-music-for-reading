@@ -41,8 +41,13 @@ function BookCard({ book, onGenerateMusic, isGenerating }) {
       className="group relative"
     >
       <motion.div
-        className="flex flex-col sm:flex-row gap-4 p-4 sm:p-6 bg-white rounded-lg border border-gray-300 hover:border-black hover:border-2 transition-all duration-300"
-        whileHover={{ y: -4 }}
+        className="flex flex-col sm:flex-row gap-4 p-4 sm:p-6 rounded-lg border transition-all duration-300"
+        style={{
+          backgroundColor: 'var(--color-surface)',
+          borderColor: 'var(--color-border)',
+          borderWidth: '1px'
+        }}
+        whileHover={{ y: -4, borderColor: 'var(--color-primary)', borderWidth: '2px' }}
         transition={{ duration: 0.2 }}
       >
         {/* Book Cover */}
@@ -62,8 +67,8 @@ function BookCard({ book, onGenerateMusic, isGenerating }) {
               />
             </div>
           ) : (
-            <div className="w-[100px] h-[150px] bg-gray-100 rounded-lg flex items-center justify-center">
-              <BookOpen className="w-8 h-8 text-gray-400" />
+            <div className="w-[100px] h-[150px] rounded-lg flex items-center justify-center" style={{ backgroundColor: 'var(--color-surface-light)' }}>
+              <BookOpen className="w-8 h-8" style={{ color: 'var(--color-text-tertiary)' }} />
             </div>
           )}
         </motion.div>
@@ -71,18 +76,18 @@ function BookCard({ book, onGenerateMusic, isGenerating }) {
         {/* Book Details */}
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-2 mb-2">
-            <h3 className="font-bold text-lg sm:text-xl text-black line-clamp-2 group-hover:text-gray-700 transition-colors flex-1">
+            <h3 className="font-bold text-lg sm:text-xl line-clamp-2 transition-colors flex-1" style={{ color: 'var(--color-text-primary)' }}>
               {book.title}
             </h3>
 
             {/* Save bookmark button */}
             <motion.button
               onClick={toggleSave}
-              className={`p-2 rounded-lg transition-colors flex-shrink-0 ${
-                isSaved
-                  ? 'bg-black text-white'
-                  : 'bg-gray-100 text-black hover:bg-gray-200'
-              }`}
+              className="p-2 rounded-lg transition-colors flex-shrink-0"
+              style={isSaved ?
+                { backgroundColor: 'var(--color-primary)', color: 'white' } :
+                { backgroundColor: 'var(--color-surface-light)', color: 'var(--color-text-primary)' }
+              }
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               title={isSaved ? 'Unsave book' : 'Save book'}
@@ -96,12 +101,12 @@ function BookCard({ book, onGenerateMusic, isGenerating }) {
           </div>
 
           <div className="flex items-center gap-2 mb-3">
-            <p className="text-gray-600 text-sm">
+            <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
               {book.authors.join(', ')}
             </p>
           </div>
 
-          <p className="text-gray-600 text-sm leading-relaxed line-clamp-2 sm:line-clamp-3 mb-4">
+          <p className="text-sm leading-relaxed line-clamp-2 sm:line-clamp-3 mb-4" style={{ color: 'var(--color-text-secondary)' }}>
             {book.description || 'No description available'}
           </p>
 
@@ -111,7 +116,8 @@ function BookCard({ book, onGenerateMusic, isGenerating }) {
               {book.categories.slice(0, 3).map((category, idx) => (
                 <span
                   key={idx}
-                  className="px-2 py-1 bg-gray-100 text-gray-700 rounded-md text-xs font-medium"
+                  className="px-2 py-1 rounded-md text-xs font-medium"
+                  style={{ backgroundColor: 'var(--color-accent)', color: 'var(--color-text-primary)' }}
                 >
                   {category}
                 </span>
@@ -123,7 +129,10 @@ function BookCard({ book, onGenerateMusic, isGenerating }) {
           <motion.button
             onClick={() => onGenerateMusic(book)}
             disabled={isGenerating}
-            className="w-full sm:w-auto px-6 py-3 bg-black text-white rounded-lg font-medium disabled:bg-gray-300 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
+            className="w-full sm:w-auto px-6 py-3 text-white rounded-lg font-medium disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
+            style={{
+              backgroundColor: isGenerating ? 'var(--color-border)' : 'var(--color-primary)'
+            }}
             whileHover={{ scale: isGenerating ? 1 : 1.02 }}
             whileTap={{ scale: isGenerating ? 1 : 0.98 }}
           >
@@ -163,11 +172,11 @@ export default function BookList({ books, onGenerateMusic, isGenerating }) {
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
       >
-        <BookOpen className="w-6 h-6 text-black" />
-        <h2 className="text-2xl font-bold text-black">
+        <BookOpen className="w-6 h-6" style={{ color: 'var(--color-text-primary)' }} />
+        <h2 className="text-2xl font-bold" style={{ color: 'var(--color-text-primary)' }}>
           Search Results
         </h2>
-        <span className="ml-2 px-2 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">
+        <span className="ml-2 px-2 py-1 rounded-full text-sm font-medium" style={{ backgroundColor: 'var(--color-surface-light)', color: 'var(--color-text-secondary)' }}>
           {books.length}
         </span>
       </motion.div>

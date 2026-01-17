@@ -5,8 +5,8 @@ export const metadata = {
   description: "Generate ambient soundscapes that fits your book's mood and themes",
   viewport: "width=device-width, initial-scale=1, maximum-scale=5",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fafaf9" },
-    { media: "(prefers-color-scheme: dark)", color: "#1c1917" }
+    { media: "(prefers-color-scheme: light)", color: "#F4F1EA" },
+    { media: "(prefers-color-scheme: dark)", color: "#382110" }
   ],
 };
 
